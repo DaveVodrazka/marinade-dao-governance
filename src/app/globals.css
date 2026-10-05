@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens. Light by default; dark follows the OS preference.
+ * Components use the semantic Tailwind colors defined in @theme below
+ * (bg-surface, text-muted, border-line, text-for, …).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #f7f8f8;
+  --surface: #ffffff;
+  --surface-2: #f1f3f3;
+  --line: #e3e6e6;
+  --line-strong: #cfd4d4;
+  --fg: #0e1414;
+  --muted: #5b6766;
+  --subtle: #8a9493;
+  --accent: #0f8f7e;
+  --accent-soft: #e2f4f1;
+  --for: #138a4c;
+  --for-soft: #e3f4ea;
+  --against: #c8352d;
+  --against-soft: #fbe7e5;
+  --warn: #a76a00;
+  --warn-soft: #fbf1dc;
+  --info: #2457c5;
+  --info-soft: #e5ecfb;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #0b0f0f;
+    --surface: #121818;
+    --surface-2: #182020;
+    --line: #232d2d;
+    --line-strong: #324040;
+    --fg: #ecf1f0;
+    --muted: #9aa7a5;
+    --subtle: #6d7a78;
+    --accent: #3cc7b2;
+    --accent-soft: #12302b;
+    --for: #3fbf7a;
+    --for-soft: #11291c;
+    --against: #ef6a61;
+    --against-soft: #2f1614;
+    --warn: #e0a43a;
+    --warn-soft: #2c2210;
+    --info: #7da2f2;
+    --info-soft: #172240;
   }
 }
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-for: var(--for);
+  --color-for-soft: var(--for-soft);
+  --color-against: var(--against);
+  --color-against-soft: var(--against-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Sanitized forum / on-chain HTML. */
+@layer components {
+  .prose-forum {
+    @apply text-[15px] leading-7 text-fg break-words;
+  }
+  .prose-forum > * + * {
+    @apply mt-4;
+  }
+  .prose-forum h1,
+  .prose-forum h2,
+  .prose-forum h3,
+  .prose-forum h4 {
+    @apply font-semibold tracking-tight mt-7;
+  }
+  .prose-forum h1 { @apply text-2xl; }
+  .prose-forum h2 { @apply text-xl; }
+  .prose-forum h3 { @apply text-lg; }
+  .prose-forum a {
+    @apply text-accent underline underline-offset-2 decoration-accent/40 hover:decoration-accent;
+  }
+  .prose-forum ul { @apply list-disc pl-6 space-y-1; }
+  .prose-forum ol { @apply list-decimal pl-6 space-y-1; }
+  .prose-forum blockquote,
+  .prose-forum aside {
+    @apply border-l-2 border-line-strong pl-4 text-muted;
+  }
+  .prose-forum code {
+    @apply font-mono text-[13px] bg-surface-2 rounded px-1 py-0.5;
+  }
+  .prose-forum pre {
+    @apply overflow-x-auto rounded-lg bg-surface-2 p-4 text-[13px] leading-6;
+  }
+  .prose-forum pre code { @apply bg-transparent p-0; }
+  .prose-forum table {
+    @apply block w-full overflow-x-auto border-collapse text-sm;
+  }
+  .prose-forum th,
+  .prose-forum td {
+    @apply border border-line px-3 py-1.5 text-left align-top;
+  }
+  .prose-forum th { @apply bg-surface-2 font-medium; }
+  .prose-forum img { @apply max-w-full h-auto rounded-md; }
+  .prose-forum hr { @apply border-line; }
+  .prose-forum details { @apply rounded-md border border-line p-3; }
+  .prose-forum summary { @apply cursor-pointer font-medium; }
 }
